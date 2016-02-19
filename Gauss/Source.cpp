@@ -169,7 +169,6 @@ void dmat(Twin& t, const std::vector<std::vector<double>>& mat) {
 		t.println();
 
 	}
-
 }
 
 void dvec(Twin& t, const std::vector<double>& vec) {
@@ -188,7 +187,7 @@ std::vector<double> gauss(std::vector<std::vector<double>> aug) {
 	int n = aug.size();
 
 	for (int i = 0; i<n; i++) {
-		// Search for maximum in this column
+
 		double maxEl = abs(aug[i][i]);
 		int maxRow = i;
 		for (int k = i + 1; k<n; k++) {
@@ -198,14 +197,12 @@ std::vector<double> gauss(std::vector<std::vector<double>> aug) {
 			}
 		}
 
-		// Swap maximum row with current row (column by column)
 		for (int k = i; k<n + 1; k++) {
 			double tmp = aug[maxRow][k];
 			aug[maxRow][k] = aug[i][k];
 			aug[i][k] = tmp;
 		}
 
-		// Make all rows below this one 0 in current column
 		for (int k = i + 1; k<n; k++) {
 			double c = -aug[k][i] / aug[i][i];
 			for (int j = i; j<n + 1; j++) {
@@ -219,7 +216,6 @@ std::vector<double> gauss(std::vector<std::vector<double>> aug) {
 		}
 	}
 
-	// Solve equation Ax=b for an upper triangular matrix A
 	std::vector<double> x(n);
 	for (int i = n - 1; i >= 0; i--) {
 		x[i] = aug[i][n] / aug[i][i];
@@ -227,7 +223,7 @@ std::vector<double> gauss(std::vector<std::vector<double>> aug) {
 			aug[k][n] -= aug[k][i] * x[i];
 		}
 	}
+
 	return x;
 
-	
 }
