@@ -2,7 +2,7 @@
 #include <sstream>
 
 std::vector<std::vector<double>> getA(Twin&);
-std::vector<double> getb(Twin&, const int);
+std::vector<double> getb(Twin&, const int&);
 void dmat(Twin&, const std::vector<std::vector<double>>&);
 void dvec(Twin&, const std::vector<double>&);
 std::vector<double> gauss(std::vector<std::vector<double>>);
@@ -110,7 +110,7 @@ std::vector<std::vector<double>> getA(Twin& t) {
 	return A;
 }
 
-std::vector<double> getb(Twin& t, const int m) {
+std::vector<double> getb(Twin& t, const int& m) {
 
 	std::vector<double> b;
 
@@ -186,33 +186,27 @@ std::vector<double> gauss(std::vector<std::vector<double>> aug) {
 
 	int n = aug.size();
 
-	for (int i = 0; i<n; i++) {
+	for (int i = 0; i < n; i++) {
 
 		double maxEl = abs(aug[i][i]);
 		int maxRow = i;
-		for (int k = i + 1; k<n; k++) {
+		for (int k = i + 1; k < n; k++) {
 			if (abs(aug[k][i]) > maxEl) {
 				maxEl = abs(aug[k][i]);
 				maxRow = k;
 			}
 		}
 
-		for (int k = i; k<n + 1; k++) {
+		for (int k = i; k < n + 1; k++) {
 			double tmp = aug[maxRow][k];
 			aug[maxRow][k] = aug[i][k];
 			aug[i][k] = tmp;
 		}
 
-		for (int k = i + 1; k<n; k++) {
+		for (int k = i + 1; k < n; k++) {
 			double c = -aug[k][i] / aug[i][i];
-			for (int j = i; j<n + 1; j++) {
-				if (i == j) {
-					aug[k][j] = 0;
-				}
-				else {
-					aug[k][j] += c * aug[i][j];
-				}
-			}
+			for (int j = i; j < n + 1; j++) aug[k][j] += c * aug[i][j];
+			
 		}
 	}
 
